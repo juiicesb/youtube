@@ -62,6 +62,4 @@ test-unit:
 ## test-integration: Run all Youtube Go integration tests
 .PHONY: test-integration
 test-integration:
-	echo 'mode: atomic' > coverage.out
-	go list ./... | xargs -n1 -I{} sh -c 'go test -race -tags=integration -covermode=atomic -coverprofile=coverage.tmp -coverpkg $(go list ./... | tr "\n" ",") {} && tail -n +2 coverage.tmp >> coverage.out || exit 255'
-	rm coverage.tmp
+	go test -race -tags=integration -covermode=atomic -coverpkg=./... -coverprofile=coverage.out ./...
